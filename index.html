@@ -3,127 +3,120 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link href="https://fonts.googleapis.com/css?family=Chivo:900" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/styles.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/prettify-mojo.css" media="screen" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <script src="javascripts/prettify.js"></script>
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <title>Sojolicious by Akron</title>
   </head>
 
-  <body>
+  <body onload="prettyPrint()">
     <div id="container">
+
+    <div id="logo"></div>
+    <a href="https://github.com/Akron/Sojolicious"><img style="position: fixed; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+
       <div class="inner">
 
         <header>
           <h1>Sojolicious</h1>
-          <h2>A toolkit for the Federated Social Web</h2>
+          <h3>A toolkit for the Federated Social Web</h3>
         </header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/Akron" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
         <section id="main_content">
-          <p>Sojolicious is a toolkit for the federated social web, containing
-plugins for the powerful web framework <a href="http://search.cpan.org/dist/Mojolicious">Mojolicious</a>
-written in Perl.</p>
+          <p>Sojolicious is a toolkit for the federated social web, containing plugins for the powerful web framework <a href="http://search.cpan.org/dist/Mojolicious">Mojolicious</a> written in Perl.</p>
 
-<h1>Synopsis</h1>
+<h2>Synopsis</h2>
 
-<div class="highlight"><pre>  <span class="k">use</span> <span class="nn">Mojolicious::</span><span class="n">Lite</span><span class="p">;</span>
+<pre class="prettyprint">
+  use Mojolicious::Lite;
 
-  <span class="c1"># Load Plugins</span>
-  <span class="n">plugin</span> <span class="s">'WebFinger'</span><span class="p">;</span>
-  <span class="n">plugin</span> <span class="s">'PubSubHubbub'</span><span class="p">;</span>
-  <span class="n">plugin</span> <span class="s">'Salmon'</span><span class="p">;</span>
+  # Load Plugins
+  plugin 'WebFinger';
+  plugin 'PubSubHubbub';
+  plugin 'Salmon';
 
-  <span class="c1"># Esablish Salmon Endpoints:</span>
-  <span class="n">group</span> <span class="p">{</span>
-    <span class="n">under</span> <span class="s">'/salmon'</span><span class="p">;</span>
-    <span class="p">(</span><span class="n">any</span> <span class="s">'/:acct/mentioned'</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">salmon</span><span class="p">(</span><span class="s">'mentioned'</span><span class="p">);</span>
-    <span class="p">(</span><span class="n">any</span> <span class="s">'/:acct/all-replies'</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">salmon</span><span class="p">(</span><span class="s">'all-replies'</span><span class="p">);</span>
-    <span class="p">(</span><span class="n">any</span> <span class="s">'/signer'</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">salmon</span><span class="p">(</span><span class="s">'signer'</span><span class="p">);</span>
-  <span class="p">};</span>
+  # Esablish Salmon Endpoints:
+  group {
+    under '/salmon';
+    (any '/:acct/mentioned')->salmon('mentioned');
+    (any '/:acct/all-replies')->salmon('all-replies');
+    (any '/signer')->salmon('signer');
+  };
 
-  <span class="c1"># Add pubsubhubbub callback url</span>
-  <span class="p">(</span><span class="n">any</span> <span class="s">'/pubsub'</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">pubsub</span><span class="p">;</span>
+  # Add pubsubhubbub callback url
+  (any '/pubsub')->pubsub;
 
-  <span class="n">hook</span> <span class="n">on_salmon_follow</span> <span class="o">=&gt;</span> <span class="k">sub </span><span class="p">{</span>
-    <span class="c1"># ... You received a follow request</span>
-  <span class="p">};</span>
+  hook on_salmon_follow => sub {
+    # ... You received a follow request
+  };
 
-  <span class="n">hook</span> <span class="n">on_pubsub_content</span> <span class="o">=&gt;</span> <span class="k">sub </span><span class="p">{</span>
-    <span class="k">my</span> <span class="p">(</span><span class="nv">$c</span><span class="p">,</span> <span class="nv">$type</span><span class="p">,</span> <span class="nv">$dom</span><span class="p">)</span> <span class="o">=</span> <span class="nv">@_</span><span class="p">;</span>
-    <span class="c1"># ... You receive feed information you subscribed to</span>
-  <span class="p">};</span>
+  hook on_pubsub_content => sub {
+    my ($c, $type, $dom) = @_;
+    # ... You receive feed information you subscribed to
+  };
 
-  <span class="n">app</span><span class="o">-&gt;</span><span class="n">start</span><span class="p">;</span>
+  app->start;
+</pre>
 
-</pre></div>
 
-<h1>Goal</h1>
+<h2>Goal</h2>
 
-<p>Sojolicious mainly focus on support for the L
-meta protocol and aims for a straight forward implementation of all
-surrounding specifications.</p>
+<p>Sojolicious mainly focus on support for the <a href="http://ostatus.org/">OStatus</a> meta protocol and aims for a straight forward implementation of all surrounding specifications.</p>
 
-<p>The design goal is to make all plugins useful on their own,
-as separated building blocks of OStatus, while playing well
-with each other. All plugins are application (despite the fact
-that they are Mojolicious plugins) and storage agnostic,
-providing event driven hooks for usage.</p>
+<p>The design goal is to make all plugins useful on their own, as separated building blocks of OStatus, while playing well with each other. All plugins are application (despite the fact that they are Mojolicious plugins) and storage agnostic, providing event driven hooks for usage.</p>
 
 <p>Some plugins will become separated distributions, in case this is useful.</p>
 
 <p>For the moment the following plugins were already seperated:</p>
 
 <ul>
-<li><a href="http://url">Test</a></li>
-<li>
-<a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Key/">Crypt-MagicSignatures-Key</a> and <a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Envelope/">Crypt-MagicSignatures-Envelope</a>
-</li>
-<li><a href="https://github.com/Akron/Mojolicious-Plugin-PubSubHubbub">Mojolicious-Plugin-PubSubHubbub</a></li>
-<li><a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Key/">XML-Loy</a></li>
-</ul><p>Sojolicious is work in progress. There are missing parts currently developed
-and existing parts reworked. Don't use it in its current status!
-However, you can use all separated parts published on CPAN.</p>
+  <li><a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Key/">Crypt-MagicSignatures-Key</a> and <a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Envelope/">Crypt-MagicSignatures-Envelope</a></li>
+  <li><a href="https://github.com/Akron/Mojolicious-Plugin-PubSubHubbub">Mojolicious-Plugin-PubSubHubbub</a></li>
+  <li><a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Key/">XML-Loy</a></li>
+</ul>
 
-<h1>Plugins for ...</h1>
+<p>Sojolicious is work in progress. There are missing parts currently developed and existing parts reworked. Don't use it in its current status! However, you can use all separated parts published on CPAN.</p>
+
+<h2>Plugins for ...</h2>
 
 <ul>
-<li><a href="http://activitystrea.ms/specs/atom/1.0/">ActivityStreams</a></li>
-<li><a href="https://www.ietf.org/rfc/rfc4287.txt">Atom</a></li>
-<li><a href="https://www.ietf.org/rfc/rfc4685.txt">Atom-Threading-Extension</a></li>
-<li><a href="http://tools.ietf.org/html/draft-hammer-hostmeta">HostMeta</a></li>
-<li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-magicsig-01.html">MagicSignatures</a></li>
-<li><a href="http://ostatus.org/sites/default/files/ostatus-1.0-draft-2-specification.html">OStatus</a></li>
-<li><a href="http://portablecontacts.net/draft-spec.html">PortableContacts</a></li>
-<li><a href="https://pubsubhubbub.googlecode.com/svn/trunk/pubsubhubbub-core-0.3.html">PubSubHubbub</a></li>
-<li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html">Salmon</a></li>
-<li><a href="http://docs.oasis-open.org/xri/xrd/v1.0/xrd-1.0.html">XRD</a></li>
-<li><a href="http://code.google.com/p/webfinger/wiki/WebFingerProtocol">Webfinger</a></li>
-</ul><p>There are plans to expand the scope to other social protocols later,
-for example <a href="http://www.oexchange.org/spec/">OExchange</a>.</p>
+  <li><a href="http://activitystrea.ms/specs/atom/1.0/">ActivityStreams</a></li>
+  <li><a href="https://www.ietf.org/rfc/rfc4287.txt">Atom</a></li>
+  <li><a href="https://www.ietf.org/rfc/rfc4685.txt">Atom-Threading-Extension</a></li>
+  <li><a href="http://tools.ietf.org/html/draft-hammer-hostmeta">HostMeta</a></li>
+  <li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-magicsig-01.html">MagicSignatures</a></li>
+  <li><a href="http://ostatus.org/sites/default/files/ostatus-1.0-draft-2-specification.html">OStatus</a></li>
+  <li><a href="http://portablecontacts.net/draft-spec.html">PortableContacts</a></li>
+  <li><a href="https://pubsubhubbub.googlecode.com/svn/trunk/pubsubhubbub-core-0.3.html">PubSubHubbub</a></li>
+  <li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html">Salmon</a></li>
+  <li><a href="http://docs.oasis-open.org/xri/xrd/v1.0/xrd-1.0.html">XRD</a></li>
+  <li><a href="http://code.google.com/p/webfinger/wiki/WebFingerProtocol">Webfinger</a></li>
+</ul>
 
-<h1>Acknowledgement</h1>
+<p>There are plans to expand the scope to other social protocols later, for example <a href="http://www.oexchange.org/spec/">OExchange</a>.</p>
 
-<p><strong>ActivityStreams</strong> was developed by Martin Atkins, Will Norris, Chris Messina, Monica Wilkinson, and Rob Dolin.
-<strong>Atom</strong> was developed by Mark Nottingham and Robert Sayre.
-<strong>Atom Threading Extensions</strong> was developed by James M. Snell.
-<strong>HostMeta</strong> was developed by  Eran Hammer-Lahav and Blaine Cook.
-<strong>MagicSignatures</strong> was developed by John Panzer, Ben Laurie, and Dirk Balfanz.
-<strong>Mojolicious</strong> is written by Sebastian Riedel.
-<strong>OStatus</strong> was developed by Evan Prodromou, Brion Vibber, James Walker, and Zach Copley.
-<strong>PortableContacts</strong> was developed by Joseph Smarr.
-<strong>PubSubHubbub</strong> was developed by Brad Fitzpatrick, Brett Slatkin, and Martin Atkins.
-<strong>Salmon</strong> was developed by John Panzer.
-<strong>Webfinger</strong> was developed by Brad Fitzpatrick, Eran Hammer-Lahav, Blaine Cook, John Panzer, and Joe Gregorio.
-<strong>XRD</strong> was developed by Eran Hammer-Lahav and Will Norris.</p>
+<h2>Acknowledgement</h2>
+
+<p>
+  <strong>ActivityStreams</strong> was developed by Martin Atkins, Will Norris, Chris Messina, Monica Wilkinson, and Rob Dolin.
+  <strong>Atom</strong> was developed by Mark Nottingham and Robert Sayre.
+  <strong>Atom Threading Extensions</strong> was developed by James M. Snell.
+  <strong>HostMeta</strong> was developed by  Eran Hammer-Lahav and Blaine Cook.
+  <strong>MagicSignatures</strong> was developed by John Panzer, Ben Laurie, and Dirk Balfanz.
+  <strong>Mojolicious</strong> is written by Sebastian Riedel.
+  <strong>OStatus</strong> was developed by Evan Prodromou, Brion Vibber, James Walker, and Zach Copley.
+  <strong>PortableContacts</strong> was developed by Joseph Smarr.
+  <strong>PubSubHubbub</strong> was developed by Brad Fitzpatrick, Brett Slatkin, and Martin Atkins.
+  <strong>Salmon</strong> was developed by John Panzer.
+  <strong>Webfinger</strong> was developed by Brad Fitzpatrick, Eran Hammer-Lahav, Blaine Cook, John Panzer, and Joe Gregorio.
+  <strong>XRD</strong> was developed by Eran Hammer-Lahav and Will Norris.
+</p>
 
 <p>... just to name the persons officially responsible for maintaining the code and the specifications.
 Thanks to all contributors of these projects as well!</p>
@@ -132,24 +125,40 @@ Thanks to all contributors of these projects as well!</p>
 
 <p>Participation on conferences was supported by the BMBF-project <a href="http://project.linguistic-networks.net/">Linguistic Networks</a>.</p>
 
-<h1>Where to learn more?</h1>
+<h2>Where to learn more?</h2>
 
 <p><a href="http://mojolicio.us">mojolicio.us</a>, <a href="http://ostatus.org/">OStatus</a>.</p>
 
-<h1>... and?</h1>
-
-<p>Copyright (C) 2011-2013, <a href="http://nils-diewald.de/">Nils Diewald</a>.</p>
-
-<p>This program is free software, you can redistribute it
-and/or modify it under the same terms as Perl.</p>
         </section>
 
         <footer>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
 
-        
+<p>Copyright (C) 2011-2013, <a href="http://nils-diewald.de/">Nils Diewald</a>.</p>
+
+<p>This program is free software, you can redistribute it and/or modify it under the same terms as Perl.</p>
+
+<p>This website uses prettify.js, Copyright (C) 2006, Google Inc., licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">the Apache License, Version 2.0</a></p>
+<p>This website uses a Mojolicious stylesheet for prettify.js, Copyright (C) 2010-2013, Sebastian Riedel, licensed under the <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-SA License, Version 3.0</a>.</p>
+
+        </footer>
       </div>
     </div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://akron.pegasus.uberspace.de/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "4"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
   </body>
 </html>
