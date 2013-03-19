@@ -44,24 +44,24 @@
   # Esablish Salmon Endpoints:
   group {
     under '/salmon';
-    (any '/:acct/mentioned')->salmon('mentioned');
-    (any '/:acct/all-replies')->salmon('all-replies');
-    (any '/signer')->salmon('signer');
+    (any '/:acct/mentioned')-&gt;salmon('mentioned');
+    (any '/:acct/all-replies')-&gt;salmon('all-replies');
+    (any '/signer')-&gt;salmon('signer');
   };
 
   # Add pubsubhubbub callback url
-  (any '/pubsub')->pubsub;
+  (any '/pubsub')-&gt;pubsub;
 
-  hook on_salmon_follow => sub {
+  hook on_salmon_follow =&gt; sub {
     # ... You received a follow request
   };
 
-  hook on_pubsub_content => sub {
+  hook on_pubsub_content =&gt; sub {
     my ($c, $type, $dom) = @_;
     # ... You receive feed information you subscribed to
   };
 
-  app->start;
+  app-&gt;start;
 </pre>
 
 

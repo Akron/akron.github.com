@@ -90,6 +90,7 @@ h2 {
 
 #container {
   background-color: #ddd;
+  background-image: url('../images/noise.png');
   min-height: 595px;
 }
 
@@ -120,6 +121,7 @@ a:hover {
 
 pre {
   font-family: Inconsolata, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
+  background-image: url('../images/pre-noise.png');
   color: #222;
   margin-bottom: 30px;
   font-size: 15px;
@@ -130,6 +132,7 @@ pre {
   border-style:solid;
   border-color:white;
   padding: 20px 10px;
+  margin: 0 20px;
 }
 
 div#logo {
