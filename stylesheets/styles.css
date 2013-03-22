@@ -169,12 +169,16 @@ ul {
 }
 
 /* COMMON STYLES */
-strong {
+b, strong {
   font-weight: bold;
 }
 
-em {
+i, em {
   font-style: italic;
+}
+
+u {
+  text-decoration: underline;
 }
 
 table {
