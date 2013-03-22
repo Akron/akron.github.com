@@ -148,6 +148,14 @@ div#logo {
   z-index: 2;
 }
 
+#github-ribbon img {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border: 0;
+  z-index: 15;
+}
+
 footer {
   display: block;
   font-size: 9pt;
