@@ -80,7 +80,9 @@
 <ul>
   <li><a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Key/">Crypt-MagicSignatures-Key</a> and <a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Envelope/">Crypt-MagicSignatures-Envelope</a></li>
   <li><a href="http://search.cpan.org/dist/Mojolicious-Plugin-PubSubHubbub/">Mojolicious-Plugin-PubSubHubbub</a></li>
-  <li><a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Key/">XML-Loy</a> (including XML extensions for Atom, Atom Threading, ActivityStreams, XRD, and HostMeta)</li>
+  <li><a href="http://search.cpan.org/dist/XML-Loy/">XML-Loy</a> (including XML extensions for Atom, Atom Threading, ActivityStreams, XRD, and HostMeta)</li>
+  <li><a href="http://search.cpan.org/dist/Mojolicious-Plugin-XRD">Mojolicious-Plugin-XRD</a></li>
+  <li><a href="https://github.com/Akron/Mojolicious-Plugin-HostMeta">Mojolicious-Plugin-HostMeta</a></li>
 </ul>
 
 <p>Sojolicious is work in progress. There are missing parts currently developed and existing parts reworked. Don't use it in its current status! However, you can use all separated parts published on CPAN.</p>
@@ -88,43 +90,26 @@
 <h2>Plugins for ...</h2>
 
 <ul>
-  <li><a href="http://activitystrea.ms/specs/atom/1.0/">ActivityStreams</a></li>
-  <li><a href="https://www.ietf.org/rfc/rfc4287.txt">Atom</a></li>
-  <li><a href="https://www.ietf.org/rfc/rfc4685.txt">Atom-Threading-Extension</a></li>
-  <li><a href="http://tools.ietf.org/html/draft-hammer-hostmeta">HostMeta</a></li>
-  <li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-magicsig-01.html">MagicSignatures</a></li>
-  <li><a href="http://ostatus.org/sites/default/files/ostatus-1.0-draft-2-specification.html">OStatus</a></li>
-  <li><a href="http://portablecontacts.net/draft-spec.html">PortableContacts</a></li>
-  <li><a href="https://pubsubhubbub.googlecode.com/svn/trunk/pubsubhubbub-core-0.3.html">PubSubHubbub</a></li>
-  <li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html">Salmon</a></li>
-  <li><a href="http://docs.oasis-open.org/xri/xrd/v1.0/xrd-1.0.html">XRD</a></li>
-  <li><a href="http://code.google.com/p/webfinger/wiki/WebFingerProtocol">Webfinger</a></li>
+  <li><a href="http://activitystrea.ms/specs/atom/1.0/">ActivityStreams</a>, developed by Martin Atkins, Will Norris, Chris Messina, Monica Wilkinson, and Rob Dolin.</li>
+  <li><a href="https://www.ietf.org/rfc/rfc4287.txt">Atom</a>, developed by Mark Nottingham and Robert Sayre.</li>
+  <li><a href="https://www.ietf.org/rfc/rfc4685.txt">Atom-Threading-Extension</a>, developed by James M. Snell.</li>
+  <li><a href="http://tools.ietf.org/html/draft-hammer-hostmeta">HostMeta</a>, developed by Eran Hammer-Lahav and Blaine Cook.</li>
+  <li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-magicsig-01.html">MagicSignatures</a>, developed by John Panzer, Ben Laurie, and Dirk Balfanz.</li>
+  <li><a href="http://ostatus.org/sites/default/files/ostatus-1.0-draft-2-specification.html">OStatus</a>, developed by Evan Prodromou, Brion Vibber, James Walker, and Zach Copley.</li>
+  <li><a href="http://portablecontacts.net/draft-spec.html">PortableContacts</a>, developed by Joseph Smarr.</li>
+  <li><a href="https://pubsubhubbub.googlecode.com/svn/trunk/pubsubhubbub-core-0.3.html">PubSubHubbub</a>, developed by Brad Fitzpatrick, Brett Slatkin, and Martin Atkins.</li>
+  <li><a href="http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html">Salmon</a>, developed by John Panzer.</li>
+  <li><a href="http://code.google.com/p/webfinger/wiki/WebFingerProtocol">WebFinger</a>, developed by Brad Fitzpatrick, Eran Hammer-Lahav, Blaine Cook, John Panzer, and Joe Gregorio.</li>
+  <li><a href="http://docs.oasis-open.org/xri/xrd/v1.0/xrd-1.0.html">XRD</a>, developed by Eran Hammer-Lahav and Will Norris.</li>
 </ul>
 
 <p>There are plans to expand the scope to other social protocols later, for example <a href="http://www.oexchange.org/spec/">OExchange</a>.</p>
 
 <h2>Acknowledgement</h2>
 
-<p>
-  <strong>ActivityStreams</strong> was developed by Martin Atkins, Will Norris, Chris Messina, Monica Wilkinson, and Rob Dolin.
-  <strong>Atom</strong> was developed by Mark Nottingham and Robert Sayre.
-  <strong>Atom Threading Extensions</strong> was developed by James M. Snell.
-  <strong>HostMeta</strong> was developed by  Eran Hammer-Lahav and Blaine Cook.
-  <strong>MagicSignatures</strong> was developed by John Panzer, Ben Laurie, and Dirk Balfanz.
-  <strong>Mojolicious</strong> is written by Sebastian Riedel.
-  <strong>OStatus</strong> was developed by Evan Prodromou, Brion Vibber, James Walker, and Zach Copley.
-  <strong>PortableContacts</strong> was developed by Joseph Smarr.
-  <strong>PubSubHubbub</strong> was developed by Brad Fitzpatrick, Brett Slatkin, and Martin Atkins.
-  <strong>Salmon</strong> was developed by John Panzer.
-  <strong>Webfinger</strong> was developed by Brad Fitzpatrick, Eran Hammer-Lahav, Blaine Cook, John Panzer, and Joe Gregorio.
-  <strong>XRD</strong> was developed by Eran Hammer-Lahav and Will Norris.
-</p>
-
-<p>... just to name the persons officially responsible for maintaining the code and the specifications.
-Thanks to all contributors of these projects as well!</p>
-
-<p>And thanks to all implementors of these specifications for inspiring code (which is referenced in the sourcecode).</p>
-
+<strong>Mojolicious</strong> is written by Sebastian Riedel.
+<p>I want to thank all persons responsible for maintaining code and specifications in this realm. Thanks to all contributors of these projects as well!</p>
+<p>And thanks to all implementors of the specifications for inspiring code (which is referenced in the sourcecode).</p>
 <p>Participation on conferences was supported by the BMBF-project <a href="http://project.linguistic-networks.net/">Linguistic Networks</a>.</p>
 
 <h2>Where to learn more?</h2>
