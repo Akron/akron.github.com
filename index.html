@@ -43,19 +43,20 @@
   plugin 'PubSubHubbub';
   plugin 'Salmon';
 
-  # Esablish Salmon Endpoints:
+  # Establish Salmon Endpoints:
   group {
     under '/salmon';
-    (any '/:acct/mentioned')-&gt;salmon('mentioned');
-    (any '/:acct/all-replies')-&gt;salmon('all-replies');
-    (any '/signer')-&gt;salmon('signer');
+    any('/:acct/mentioned')-&gt;salmon('mentioned');
+    any('/:acct/all-replies')-&gt;salmon('all-replies');
+    any('/signer')-&gt;salmon('signer');
   };
 
-  # Add pubsubhubbub callback url
-  (any '/pubsub')-&gt;pubsub;
+  # Add PubSubHubbub callback url
+  any('/pubsub')-&gt;pubsub;
 
+  # Hooks for incoming notifications
   hook on_salmon_follow =&gt; sub {
-    # ... You received a follow request
+    # ... You receive a follow request
   };
 
   hook on_pubsub_content =&gt; sub {
@@ -80,7 +81,7 @@
 <ul>
   <li><a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Key/">Crypt-MagicSignatures-Key</a> and <a href="http://search.cpan.org/dist/Crypt-MagicSignatures-Envelope/">Crypt-MagicSignatures-Envelope</a></li>
   <li><a href="http://search.cpan.org/dist/Mojolicious-Plugin-PubSubHubbub/">Mojolicious-Plugin-PubSubHubbub</a></li>
-  <li><a href="http://search.cpan.org/dist/XML-Loy/">XML-Loy</a> (including XML extensions for Atom, Atom Threading, ActivityStreams, XRD, and HostMeta)</li>
+  <li><a href="http://search.cpan.org/dist/XML-Loy/">XML-Loy</a> (including XML extensions for <a href="http://search.cpan.org/dist/XML-Loy/lib/XML/Loy/Atom.pm">Atom</a>, <a href="http://search.cpan.org/dist/XML-Loy/lib/XML/Loy/Atom/Threading.pm">Atom Threading</a>, <a href="http://search.cpan.org/dist/XML-Loy/lib/XML/Loy/ActivityStreams.pm">ActivityStreams</a>, <a href="http://search.cpan.org/dist/XML-Loy/lib/XML/Loy/XRD.pm">XRD</a>, and <a href="http://search.cpan.org/dist/XML-Loy/lib/XML/Loy/HostMeta.pm">HostMeta</a>)</li>
   <li><a href="http://search.cpan.org/dist/Mojolicious-Plugin-XML-Loy/">Mojolicious-Plugin-XML-Loy</a></li>
   <li><a href="http://search.cpan.org/dist/Mojolicious-Plugin-XRD">Mojolicious-Plugin-XRD</a></li>
   <li><a href="http://search.cpan.org/dist/Mojolicious-Plugin-HostMeta">Mojolicious-Plugin-HostMeta</a></li>
